@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>インド占星術 AI精密鑑定</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;700;900&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{min-height:100vh;background:radial-gradient(ellipse at 20% 0%,#180830,#080418 45%,#020108);color:#e8d8ff;font-family:'Noto Serif JP',serif}
+@keyframes fl{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+@keyframes sh{0%{background-position:-200% center}100%{background-position:200% center}}
+@keyframes sp{to{transform:rotate(360deg)}}
+@keyframes pu{0%,100%{opacity:1}50%{opacity:.2}}
+@keyframes tw{from{opacity:.03}to{opacity:.95}}
+@keyframes sc{0%,100%{transform:scale(1)}50%{transform:scale(1.04)}}
+.pu2{background:linear-gradient(90deg,#7040c0,#b080ff,#9060e0,#7040c0);background-size:200% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;animation:sh 5s linear infinite}
+.gd{background:linear-gradient(90deg,#c8902a,#f0d060,#ffe090,#e0a830,#c8902a);background-size:200% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;animation:sh 5s linear infinite}
+.gld{background:linear-gradient(90deg,#b87820,#e8b040,#f8d060,#d09020,#b87820);background-size:200% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;animation:sh 4s linear infinite}
+.sk{background:linear-gradient(90deg,#2080c0,#60c0ff,#4090d0,#2080c0);background-size:200% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;animation:sh 5s linear infinite 2s}
+#stars{position:fixed;inset:0;pointer-events:none;z-index:0}
+.star{position:absolute;border-radius:50%}
+.wrap{position:relative;z-index:1;max-width:720px;margin:0 auto;padding:0 16px 80px}
+.card{background:rgba(8,4,20,.92);border:1px solid rgba(139,100,220,.2);border-radius:22px;padding:24px;margin-bottom:16px;backdrop-filter:blur(16px)}
+.card-glow{border-color:rgba(139,100,220,.55)!important;box-shadow:0 0 30px rgba(139,100,220,.2)}
+.pcard{background:rgba(15,10,4,.96);border:1px solid rgba(220,160,50,.3);border-radius:22px;padding:24px;margin-bottom:16px;backdrop-filter:blur(16px)}
+.pcard-glow{border-color:rgba(220,160,50,.6)!important;box-shadow:0 0 30px rgba(220,160,50,.2)}
+.menu-card{border-radius:22px;padding:22px;margin-bottom:14px;cursor:pointer;border:1px solid;transition:transform .2s;backdrop-filter:blur(14px)}
+.menu-card:hover{transform:translateY(-3px)}
+.pill{display:inline-block;background:rgba(139,100,220,.12);border:1px solid rgba(139,100,220,.35);border-radius:999px;padding:5px 13px;font-size:12px;margin:3px;color:#c0a0ff}
+.ppill{display:inline-block;background:rgba(220,160,50,.12);border:1px solid rgba(220,160,50,.35);border-radius:999px;padding:5px 13px;font-size:12px;margin:3px;color:#f0c060}
+.sb{background:rgba(139,100,220,.05);border:1px solid rgba(139,100,220,.18);border-radius:14px;padding:16px}
+.psb{background:rgba(220,160,50,.05);border:1px solid rgba(220,160,50,.2);border-radius:14px;padding:16px}
+.pblock{background:rgba(220,160,50,.05);border:1px solid rgba(220,160,50,.2);border-radius:14px;padding:20px;margin-bottom:14px;white-space:pre-line;font-size:14px;line-height:2.2;color:#f0d8a0}
+.dv{display:flex;align-items:center;gap:12px;margin:18px 0;color:rgba(139,100,220,.4);font-size:11px;letter-spacing:4px}
+.dv::before,.dv::after{content:'';flex:1;height:1px;background:rgba(139,100,220,.18)}
+.inp{display:block;width:100%;padding:13px 16px;background:rgba(15,8,35,.95);border:1px solid rgba(139,100,220,.4);border-radius:11px;color:#e8d8ff;font-size:16px;font-family:inherit;outline:none;-webkit-appearance:none}
+.txa{display:block;width:100%;min-height:130px;padding:14px 16px;background:rgba(15,8,35,.95);border:2px solid rgba(139,100,220,.5);border-radius:12px;color:#f0e8ff;font-size:16px;font-family:inherit;line-height:1.9;outline:none;resize:vertical;-webkit-appearance:none}
+.lb{display:block;font-size:11px;color:#9060e0;margin-bottom:6px;letter-spacing:2px}
+.bm{width:100%;padding:17px;background:linear-gradient(135deg,#5020a0,#8040e0,#6030b0);border:none;border-radius:999px;font-size:16px;font-weight:900;color:#f0e8ff;cursor:pointer;font-family:inherit;letter-spacing:3px;margin-top:14px}
+.pbm{width:100%;padding:17px;background:linear-gradient(135deg,#806010,#d0a030,#e8c050,#b08020);border:none;border-radius:999px;font-size:16px;font-weight:900;color:#1a0e00;cursor:pointer;font-family:inherit;letter-spacing:3px;margin-top:14px}
+.bs{width:100%;padding:12px;background:transparent;border:1px solid rgba(139,100,220,.35);border-radius:999px;font-size:13px;color:#9060e0;cursor:pointer;font-family:inherit;margin-top:8px}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.err{color:#e07070;font-size:13px;text-align:center;margin-top:10px}
+.fortune-ring{width:120px;height:120px;border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto;animation:sc 3s ease infinite}
+.spinner{width:62px;height:62px;border-radius:50%;margin:0 auto 28px;animation:sp 1s linear infinite}
+@media(max-width:600px){.g2{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div id="stars"></div>
+<div class="wrap">
+<header style="text-align:center;padding:44px 16px 20px">
+  <div style="font-size:10px;letter-spacing:8px;color:#3a2060;margin-bottom:14px">JYOTISH · ヴェーダ占星術 AI 精密鑑定</div>
+  <div style="font-size:42px;margin-bottom:8px;filter:drop-shadow(0 0 20px rgba(139,100,220,.5));animation:fl 3s ease infinite">🔮</div>
+  <h1 style="margin:0;font-size:clamp(18px,4.5vw,28px);letter-spacing:3px;line-height:1.6;font-weight:900">
+    <span class="pu2">インド占星術</span><br>
+    <span class="gd">ジョーティシュ</span> <span style="color:rgba(200,150,255,.25)">·</span> <span class="sk">AI 精密鑑定</span>
+  </h1>
+</header>
+<div id="app"></div>
+</div>
+<script>
+(function(){
+  const el=document.getElementById('stars');let x=54321;
+  const r=()=>{x=(x*1664525+1013904223)&0xffffffff;return(x>>>0)/4294967296;};
+  for(let i=0;i<80;i++){const s=document.createElement('div');s.className='star';
+    const sz=r()>.88?2.5:r()>.6?1.5:1,col=i%5===0?'#c080ff':i%3===0?'#80a0ff':'#fff';
+    s.style.cssText='width:'+sz+'px;height:'+sz+'px;background:'+col+';left:'+r()*100+'%;top:'+r()*100+'%;opacity:'+(0.08+r()*.65)+';animation:tw '+(1.5+r()*4)+'s ease-in-out infinite alternate;animation-delay:'+r()*6+'s';
+    el.appendChild(s);}
+})();
+
+const NAKSHATRAS=[
+  {name:"アシュヴィニー",ruler:"ケートゥ",symbol:"馬の頭",quality:"軽快・行動力・癒し",deity:"アシュヴィン双神"},
+  {name:"バラニー",ruler:"金星",symbol:"女陰",quality:"変容・情熱・創造力",deity:"ヤマ"},
+  {name:"クリッティカー",ruler:"太陽",symbol:"剃刀",quality:"浄化・意志・変革",deity:"アグニ"},
+  {name:"ローヒニー",ruler:"月",symbol:"牛車",quality:"豊穣・美・創造",deity:"ブラフマー"},
+  {name:"ムリガシラー",ruler:"火星",symbol:"鹿の頭",quality:"探求・好奇心・優雅",deity:"ソーマ"},
+  {name:"アールドラー",ruler:"ラーフ",symbol:"宝石",quality:"嵐・変革・覚醒",deity:"ルドラ"},
+  {name:"プナルヴァス",ruler:"木星",symbol:"弓と箭",quality:"再生・帰還・豊かさ",deity:"アディティ"},
+  {name:"プシャ",ruler:"土星",symbol:"牛の乳房",quality:"養育・保護・繁栄",deity:"ブリハスパティ"},
+  {name:"アシュレーシャ",ruler:"水星",symbol:"蛇の輪",quality:"洞察・変容・神秘",deity:"サルパ"},
+  {name:"マガー",ruler:"ケートゥ",symbol:"玉座",quality:"権威・先祖・遺産",deity:"ピトリ"},
+  {name:"プールヴァ・パールグニー",ruler:"金星",symbol:"前脚",quality:"楽しみ・愛・創造",deity:"バガ"},
+  {name:"ウッタラ・パールグニー",ruler:"太陽",symbol:"後脚",quality:"友情・支援・繁栄",deity:"アリヤマン"},
+  {name:"ハスタ",ruler:"月",symbol:"手のひら",quality:"技巧・癒し・器用さ",deity:"サヴィトリ"},
+  {name:"チトラー",ruler:"火星",symbol:"真珠",quality:"美・創造・鮮やかさ",deity:"トヴァシュトリ"},
+  {name:"スヴァーティ",ruler:"ラーフ",symbol:"珊瑚",quality:"独立・自由・柔軟",deity:"ヴァーユ"},
+  {name:"ヴィシャーカー",ruler:"木星",symbol:"凱旋門",quality:"目的・情熱・達成",deity:"インドラ"},
+  {name:"アヌラーダ",ruler:"土星",symbol:"蓮の花",quality:"友情・繁栄・献身",deity:"ミトラ"},
+  {name:"ジェーシュター",ruler:"水星",symbol:"丸いお守り",quality:"保護・力・神秘",deity:"インドラ"},
+  {name:"ムーラ",ruler:"ケートゥ",symbol:"根",quality:"根源・変革・解放",deity:"ニリティ"},
+  {name:"プールヴァ・アシャーダ",ruler:"金星",symbol:"牙",quality:"浄化・勝利・誇り",deity:"アパス"},
+  {name:"ウッタラ・アシャーダ",ruler:"太陽",symbol:"象の牙",quality:"最終的勝利・徳",deity:"ヴィシュヴェーデーヴァ"},
+  {name:"シュラヴァナ",ruler:"月",symbol:"三本の足跡",quality:"学習・伝達・聴く力",deity:"ヴィシュヌ"},
+  {name:"ダニシュター",ruler:"火星",symbol:"太鼓",quality:"富・音楽・行進",deity:"アシュタヴァス"},
+  {name:"シャタビシャ",ruler:"ラーフ",symbol:"空の円",quality:"癒し・秘密・宇宙",deity:"ヴァルナ"},
+  {name:"プールヴァ・バードラパダー",ruler:"木星",symbol:"双頭の男",quality:"変革・火・精神",deity:"アジャ"},
+  {name:"ウッタラ・バードラパダー",ruler:"土星",symbol:"双子",quality:"深淵・知恵・安定",deity:"アヒル"},
+  {name:"レーヴァティ",ruler:"水星",symbol:"魚一対",quality:"豊かさ・旅・保護",deity:"プーシャン"},
+];
+const RASHIS=[
+  {name:"メーシャ（牡羊）",el:"火",gem:"赤珊瑚",mantra:"Om Mangalaya Namah",dir:"南"},
+  {name:"ヴリシャバ（牡牛）",el:"土",gem:"ダイヤ",mantra:"Om Shukraya Namah",dir:"北"},
+  {name:"ミトゥナ（双子）",el:"風",gem:"エメラルド",mantra:"Om Budhaya Namah",dir:"東"},
+  {name:"カルカ（蟹）",el:"水",gem:"真珠",mantra:"Om Chandraya Namah",dir:"西"},
+  {name:"シンハ（獅子）",el:"火",gem:"ルビー",mantra:"Om Suryaya Namah",dir:"南"},
+  {name:"カニャー（乙女）",el:"土",gem:"エメラルド",mantra:"Om Budhaya Namah",dir:"北"},
+  {name:"トゥラー（天秤）",el:"風",gem:"ダイヤ",mantra:"Om Shukraya Namah",dir:"東"},
+  {name:"ヴリシュチカ（蠍）",el:"水",gem:"赤珊瑚",mantra:"Om Mangalaya Namah",dir:"西"},
+  {name:"ダヌ（射手）",el:"火",gem:"黄玉",mantra:"Om Guruve Namah",dir:"南"},
+  {name:"マカラ（山羊）",el:"土",gem:"サファイア",mantra:"Om Shanaye Namah",dir:"北"},
+  {name:"クンバ（水瓶）",el:"風",gem:"サファイア",mantra:"Om Shanaye Namah",dir:"東"},
+  {name:"ミーナ（魚）",el:"水",gem:"黄玉",mantra:"Om Guruve Namah",dir:"西"},
+];
+const DL=["ケートゥ","金星","太陽","月","火星","ラーフ","木星","土星","水星"],DY=[7,20,6,10,7,18,16,19,17];
+const FSTY={大吉:{c:"#ffd700",g:"rgba(255,215,0,.5)"},吉:{c:"#80e0a0",g:"rgba(128,224,160,.4)"},中吉:{c:"#80c0ff",g:"rgba(128,192,255,.4)"},中平:{c:"#b0b0ff",g:"rgba(176,176,255,.3)"},注意:{c:"#ffb060",g:"rgba(255,176,96,.4)"}};
+
+function norm(v){return((v%360)+360)%360;}
+function toJD(y,m,d,h=12){if(m<=2){y--;m+=12;}const A=Math.floor(y/100),B=2-A+Math.floor(A/4);return Math.floor(365.25*(y+4716))+Math.floor(30.6001*(m+1))+d+h/24+B-1524.5;}
+function sunL(jd){const n=jd-2451545,L=(280.46+0.9856474*n)%360,g=((357.528+0.9856003*n)%360)*Math.PI/180;return norm(L+1.915*Math.sin(g)+0.02*Math.sin(2*g));}
+function moonL(jd){const n=jd-2451545,L=(218.316+13.176396*n)%360,M=((134.963+13.064993*n)%360)*Math.PI/180,F=((93.272+13.22935*n)%360)*Math.PI/180,Ms=((357.528+0.9856003*n)%360)*Math.PI/180;return norm(L+6.289*Math.sin(M)-1.274*Math.sin(2*F-M)+0.658*Math.sin(2*F)-0.214*Math.sin(2*M)-0.186*Math.sin(Ms));}
+function calcP(jd){const n=jd-2451545,ay=23.85+(n/365.25)*0.01396;return{sun:norm(sunL(jd)-ay),moon:norm(moonL(jd)-ay)};}
+function calcLagna(lon,lat,jd,bh){const lst=(100.4606184+360.98564774*(jd-2451545)+lon)%360,ob=23.439*Math.PI/180,lr=lat*Math.PI/180,rc=((lst+bh*15)%360)*Math.PI/180;let l=Math.atan2(Math.cos(rc),-(Math.sin(rc)*Math.cos(ob)+Math.tan(lr)*Math.sin(ob)))*180/Math.PI;if(l<0)l+=360;const n=jd-2451545;return norm(l-23.85-(n/365.25)*0.01396);}
+function getNak(lon){const i=Math.floor(lon/(360/27))%27,pada=Math.floor((lon%(360/27))/(360/27/4))+1;return{nak:NAKSHATRAS[i],pada};}
+function getRashi(lon){return Math.floor(lon/30)%12;}
+function calcDasha(mlon,by){const ni=Math.floor(mlon/(360/27)),ri=ni%9,frac=(mlon%(360/27))/(360/27),first=DY[ri]*(1-frac);const p=[];let cur=by+first;for(let i=0;i<9;i++){const idx=(ri+i)%9,y=i===0?first:DY[idx],st=i===0?by+(first-DY[ri]):cur;p.push({lord:DL[idx],start:Math.floor(i===0?by:cur),end:Math.floor(i===0?by+first:cur+y)});cur=i===0?by+first:cur+y;}return p;}
+function curD(p){const yr=new Date().getFullYear();return p.find(d=>d.start<=yr&&d.end>yr)||p[p.length-1];}
+const CITIES={"東京":[139.69,35.69],"大阪":[135.50,34.69],"京都":[135.77,35.01],"名古屋":[136.91,35.18],"福岡":[130.42,33.59]};
+function getCoords(p){for(const[c,v]of Object.entries(CITIES)){if(p.includes(c))return v;}return[135.5,35.0];}
+function calcAstro(bd,bt,bp){
+  const[by,bm,bd2]=bd.split('-').map(Number),[bh,bmn]=(bt||'12:00').split(':').map(Number);
+  const jd=toJD(by,bm,bd2,bh+(bmn||0)/60),[clon,clat]=getCoords(bp);
+  const lons=calcP(jd),lagnaLon=calcLagna(clon,clat,jd,bh+(bmn||0)/60);
+  const moonNak=getNak(lons.moon),moonR=RASHIS[getRashi(lons.moon)],lagnaR=RASHIS[getRashi(lagnaLon)];
+  const dp=calcDasha(lons.moon,by),cd=curD(dp);
+  return{moonNak,moonR,lagnaR,lagnaLon,curDasha:cd,dasha:dp};}
+
+const SYS_STD=`あなたはヴェーダ占星術（ジョーティシュ）の第一人者です。温かく共感的で現代的な日本語で鑑定してください。全体の70%は前向きで温かい内容、30%は「正直に言うと」「ここだけは見直してほしい」「星が警告しています」という率直で辛口の視点を必ず含めてください。甘いだけの鑑定は相手の成長を止めます。必ずJSON形式のみで返答（コードブロック不要）:
+{"lagna_reading":"ラグナ鑑定250字。強みと同時に陥りやすいパターン・課題も率直に","moon_reading":"月・ナクシャトラ鑑定250字。感情的な弱点や克服すべき傾向も正直に","dasha_reading":"ダシャー鑑定250字。この時期の注意点・やってはいけないことも明記","yoga_reading":"ヨーガ解説180字。課題となる配置も率直に","integrated":"統合深層鑑定500字以上。うち150字以上は耳が痛い現実・改善すべき点を愛を持って","fortune_level":"大吉か吉か中吉か中平か注意","key_message":"核心の一言30字以内","action":"開運アクション3つ。うち1つは今すぐやめるべきこと","remedy":"推奨宝石・マントラ・カラー・吉方位をわかりやすく"}`;
+
+const SYS_PRM=`あなたはヴェーダ占星術の最高峰の大師です。プレミアム特別鑑定です。インド哲学・カルマ・ダルマの深い観点から魂に響く長文鑑定書を作成してください。全体の70%は深く温かい内容、30%は率直で辛口の本音を必ず含めてください。「カルマは正直です」「星は嘘をつきません」「愛を持って本当のことを言います」など心に刺さる率直な言葉を要所に入れてください。必ずJSON形式のみで返答:
+{"dharma":"ダルマの読み解き400字以上。使命と同時に最大の障害・克服すべき弱点も率直に指摘","karma":"カルマと今世の課題300字以上。繰り返しているネガティブなパターンも愛を持って指摘","present":"現在の状況300字以上。耳が痛い現実も含め正直に読み解く","future":"未来3ステージ350字以上。明るい未来とそのために手放さなければならないことを具体的に","sadhana":"魂の実践4段階300字以上。今すぐやめるべきこと・手放すべき習慣も含む","message":"特別メッセージ250字以上。甘やかしではなく魂の成長を促す愛ある厳しい言葉で","fortune_level":"大吉か吉か中吉か中平か注意","key_message":"魂の核心30字以内"}`;
+
+function fallback(svc,f,a){
+  const{moonNak,moonR,lagnaR,curDasha}=a,nm=f.name||'あなた',dir=lagnaR?.dir||'東';
+  if(svc==='standard')return{lagna_reading:'ラグナ「'+lagnaR?.name+'」はあなたの人生の外的表現を示します。'+lagnaR?.el+'のエネルギーが行動スタイルの根幹を形成しています。正直に言うと、このラグナは時に自分のペースを周囲に押しつける傾向があります。それを意識するだけで人間関係が大きく改善されます。',moon_reading:'月ナクシャトラ「'+moonNak.nak.name+'」第'+moonNak.pada+'パダ。シンボル「'+moonNak.nak.symbol+'」が示す感受性があなたの強みです。ただしこのナクシャトラは感情的になりやすく、冷静さを失うと大切なものを傷つけてしまう傾向があります。それがあなたの最大の課題です。',dasha_reading:'現在は「'+curDasha.lord+'マハーダシャー」（'+curDasha.start+'〜'+curDasha.end+'年）。この時期はそのテーマと向き合う最高のタイミングです。ただしこの大運期にやってはいけないことがあります——焦って大きな決断を下すことです。じっくり準備してください。',yoga_reading:'現在のホロスコープには特別な配置が示されています。この才能を意識的に活かすことで潜在能力が開花します。ただし、この配置は過信すると逆効果になることも知っておいてください。',integrated:'ご相談「'+f.question+'」について、星はこう告げています。答えはすでにあなたの中にあります。ただし正直に言います——今のあなたは「わかってはいるけど動けていない」状態ではありませんか？その根本には「失敗への恐れ」があります。その恐れを手放すことが、今最も必要な一歩です。月ナクシャトラ「'+moonNak.nak.name+'」の特質「'+moonNak.nak.quality+'」を信頼して、まず小さく動き始めてください。',fortune_level:'吉',key_message:moonNak.nak.name+'の力を信じて一歩前へ',action:'①毎朝'+dir+'方向に向かって今日の意図を宣言する\n②'+moonR?.mantra+'を就寝前に21回唱える\n③今すぐやめること：「まだ準備ができていない」という言い訳',remedy:'推奨宝石「'+moonR?.gem+'」（左手薬指）/ パワーカラー：'+lagnaR?.el+'系 / マントラ「'+moonR?.mantra+'」'};
+  return{dharma:'【ダルマ（魂の使命）】\n\n'+nm+'さん、あなたがここに来たのは偶然ではありません。ラグナ「'+lagnaR?.name+'」が示す今世の出発点は、'+lagnaR?.el+'のエネルギーを通じて世界に働きかけることです。\n\n正直に言います——あなたには特別な才能があります。しかしその才能を「まだ準備が整っていない」と言い訳にして眠らせてきた時間はありませんか。カルマは正直です。天はすでに準備しています。',karma:'【カルマ（魂の学習テーマ）】\n\n月ナクシャトラ「'+moonNak.nak.name+'」第'+moonNak.pada+'パダ。このナクシャトラの特質「'+moonNak.nak.quality+'」は、あなたが今世に持ち込んできた才能です。\n\nしかし愛を持って伝えます——繰り返してきた「あの人のせいで」「環境のせいで」という思考パターンはありませんか？それがあなたの成長を止めてきた主犯です。手放す時が来ています。',present:'【現在の状況】\n\n現在は「'+curDasha.lord+'マハーダシャー」（'+curDasha.start+'〜'+curDasha.end+'年）。ご相談「'+f.question+'」について、星はこう告げます——答えは出ています。あなたがそれを認めることを恐れているだけです。今のまま変わらなければ、5年後も同じ悩みを抱えています。それでいいですか。',future:'【未来の展望】\n\n▶ 近い未来（〜6ヶ月）\n'+dir+'方向への行動が鍵。ただし焦って動くと逆効果。準備を整えながら小さく動き始めてください。\n\n▶ 中期（6ヶ月〜2年）\n月ナクシャトラ「'+moonNak.nak.name+'」の才能が開花し始めます。ただしここで怠けると再び眠ります。\n\n▶ 長期（2年以降）\n'+curDasha.end+'年以降、新しいステージへ。今の経験がすべて活きる時が来ます。',sadhana:'【魂の実践（サーダナ）】\n\n①今日から：マントラ「'+moonR?.mantra+'」を就寝前に21回唱える\n②今週中：長い間後回しにしてきたことに向き合う\n③今月中：推奨宝石「'+moonR?.gem+'」を左手薬指に\n④今すぐやめること：「まだ準備が整っていない」という言い訳と、他者への責任転嫁',message:''+nm+'さんへ。\n\nヴェーダはこう語ります——「星は運命を決めるのではなく、可能性を照らす灯台である」と。\n\n正直に伝えます。あなたには、すでにすべてが備わっています。ただそれを信じることが一番の課題なのかもしれません。そして信じるだけでなく、動くこと。考えてばかりで動けない、それが今のあなたへの最大の警告です。\n\n月ナクシャトラ「'+moonNak.nak.name+'」の守護神「'+moonNak.nak.deity+'」があなたを見守っています。恐れずに一歩踏み出してください。',fortune_level:'吉',key_message:moonNak.nak.name+'の星があなたの魂を照らす'};}
+
+let STATE={screen:'menu',svc:'standard',step:'input',result:null,loadMsg:'',err:''};
+function set(s){Object.assign(STATE,s);render();}
+function render(){
+  const app=document.getElementById('app');
+  if(STATE.screen==='menu')app.innerHTML=renderMenu();
+  else if(STATE.step==='input')app.innerHTML=renderInput();
+  else if(STATE.step==='loading')app.innerHTML=renderLoading();
+  else if(STATE.step==='result'&&STATE.result)app.innerHTML=renderResult();
+  bindEvents();}
+function renderMenu(){
+  return`
+  <div class="menu-card" style="background:rgba(8,4,20,.92);border-color:rgba(139,100,220,.3)" data-action="start" data-svc="standard">
+    <div style="display:flex;align-items:center;gap:14px">
+      <div style="font-size:32px;animation:fl 3s ease infinite">🔮</div>
+      <div style="flex:1">
+        <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px">
+          <div class="pu2" style="font-size:18px;font-weight:900;letter-spacing:4px">ジョーティシュ精密鑑定</div>
+          <div style="background:rgba(139,100,220,.2);border:1px solid rgba(139,100,220,.5);border-radius:10px;padding:5px 14px;text-align:center">
+            <div style="font-size:9px;color:rgba(180,140,255,.6);letter-spacing:2px;margin-bottom:2px">料金</div>
+            <div style="font-size:20px;font-weight:900;color:#c0a0ff">¥2,000</div>
+          </div>
+        </div>
+        <div style="font-size:12px;color:#5040a0;margin-top:4px">9惑星 · 27ナクシャトラ · ダシャー · ヨーガ統合鑑定</div>
+        <div style="margin-top:8px"><span class="pill">ラグナ計算</span><span class="pill">月ナクシャトラ</span><span class="pill">ダシャー周期</span><span class="pill">AI統合鑑定</span></div>
+      </div>
+      <div style="font-size:20px;color:rgba(139,100,220,.4)">›</div>
+    </div>
+  </div>
+  <div class="menu-card" style="background:rgba(15,10,4,.96);border-color:rgba(220,160,50,.35)" data-action="start" data-svc="premium">
+    <div style="display:flex;align-items:center;gap:14px">
+      <div style="font-size:32px;animation:fl 2s ease infinite">👑</div>
+      <div style="flex:1">
+        <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px">
+          <div class="gld" style="font-size:18px;font-weight:900;letter-spacing:3px">プレミアム特別鑑定</div>
+          <div style="background:rgba(220,160,50,.2);border:1px solid rgba(220,160,50,.5);border-radius:10px;padding:5px 14px;text-align:center">
+            <div style="font-size:9px;color:rgba(255,200,80,.6);letter-spacing:2px;margin-bottom:2px">料金</div>
+            <div style="font-size:20px;font-weight:900;color:#f0c060">¥3,000</div>
+          </div>
+        </div>
+        <div style="font-size:12px;color:#806020;margin-top:4px">ダルマ · カルマ · 魂の使命 · 6章構成の最長鑑定書</div>
+        <div style="margin-top:8px"><span class="ppill">魂の使命（ダルマ）</span><span class="ppill">カルマ解読</span><span class="ppill">未来3ステージ</span><span class="ppill">特別メッセージ</span></div>
+      </div>
+      <div style="font-size:20px;color:rgba(220,160,50,.4)">›</div>
+    </div>
+  </div>`;}
+function renderInput(){
+  const isPrem=STATE.svc==='premium';
+  const thOpts=["総合運","仕事・事業・キャリア","金運・財運","恋愛・結婚","健康・長寿","精神的成長","転機・海外"].map(t=>`<option>${t}</option>`).join('');
+  return`<div class="${isPrem?'pcard pcard-glow':'card card-glow'}">
+    <div style="text-align:center;margin-bottom:20px">
+      <div style="font-size:30px;animation:fl 2s ease infinite">${isPrem?'👑':'🔮'}</div>
+      <div class="${isPrem?'gld':'pu2'}" style="font-size:16px;font-weight:900;letter-spacing:4px;margin-top:8px">${isPrem?'プレミアム特別鑑定':'ジョーティシュ精密鑑定'}</div>
+      <div style="background:${isPrem?'rgba(220,160,50,.15)':'rgba(139,100,220,.15)'};border:1px solid ${isPrem?'rgba(220,160,50,.4)':'rgba(139,100,220,.4)'};border-radius:999px;padding:3px 16px;font-size:14px;font-weight:900;color:${isPrem?'#f0c060':'#c0a0ff'};display:inline-block;margin-top:8px">${isPrem?'¥3,000':'¥2,000'}</div>
+    </div>
+    <div class="g2"><div><label class="lb">お名前</label><input class="inp" id="nm" placeholder="山田 花子"></div>
+    <div><label class="lb">性別</label><select class="inp" id="gd"><option value="">未選択</option><option>男性</option><option>女性</option><option>その他</option></select></div></div>
+    <div class="g2" style="margin-top:12px"><div><label class="lb">生年月日 <span style="color:#e07070">*</span></label><input class="inp" id="bd" type="date"></div>
+    <div><label class="lb">出生時間</label><input class="inp" id="bt" type="time" value="12:00"></div></div>
+    <div style="margin-top:12px"><label class="lb">出生地</label><input class="inp" id="bp" placeholder="東京・大阪・京都…"></div>
+    <div style="margin-top:12px"><label class="lb">相談テーマ</label><select class="inp" id="th">${thOpts}</select></div>
+    <div style="margin-top:14px"><label class="lb">相談内容 <span style="color:#e07070">*</span></label>
+    <textarea class="txa" id="q" placeholder="${isPrem?'あなたが今最も深く向き合いたいテーマを書いてください':'今一番知りたいことを書いてください'}"></textarea></div>
+    ${STATE.err?`<div class="err">${STATE.err}</div>`:''}
+    <button class="${isPrem?'pbm':'bm'}" data-action="submit">${isPrem?'👑':'🔮'} ${isPrem?'プレミアム特別鑑定':'ジョーティシュ精密鑑定'}を開始する</button>
+    <button class="bs" data-action="menu">← メニューに戻る</button></div>`;}
+function renderLoading(){
+  const isPrem=STATE.svc==='premium';
+  return`<div class="${isPrem?'pcard':'card'}" style="text-align:center;padding:80px 24px">
+    <div class="spinner" style="border:2px solid rgba(${isPrem?'220,160,50':'139,100,220'},.2);border-top-color:${isPrem?'#e0a030':'#9060e0'}"></div>
+    <div class="${isPrem?'gld':'pu2'}" style="font-size:18px;letter-spacing:5px;margin-bottom:14px">${isPrem?'魂の鑑定書を作成中':'精密計算中'}</div>
+    <div style="font-size:13px;color:#6040a0;animation:pu 1.6s ease infinite">${STATE.loadMsg}</div></div>`;}
+function renderResult(){
+  const r=STATE.result,ai=r.ai,isPrem=r.svc==='premium';
+  const flv=ai.fortune_level||'吉',fs=FSTY[flv]||FSTY['吉'];
+  let body='';
+  if(!isPrem){
+    body=`${[{icon:"♈",t:"ラグナ鑑定",k:"lagna_reading"},{icon:"☽",t:"月・ナクシャトラ鑑定",k:"moon_reading"},{icon:"⏳",t:"ダシャー鑑定",k:"dasha_reading"},{icon:"✨",t:"ヨーガ（特殊配置）",k:"yoga_reading"}].map(s=>`<div class="card"><div style="display:flex;align-items:center;gap:12px;margin-bottom:14px"><span style="font-size:22px">${s.icon}</span><div class="pu2" style="font-size:15px;font-weight:bold;letter-spacing:3px">${s.t}</div></div><div class="sb"><p style="font-size:14px;line-height:2.1;color:#d0b8ff">${ai[s.k]||''}</p></div></div>`).join('')}
+    <div class="card card-glow"><div class="pu2" style="font-size:17px;font-weight:bold;letter-spacing:5px;text-align:center;margin-bottom:18px">AI 統合深層鑑定</div>
+    <div class="sb" style="margin-bottom:14px"><p style="font-size:15px;line-height:2.2;color:#e0d0ff">${ai.integrated||''}</p></div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+      <div style="background:rgba(139,100,220,.1);border-radius:12px;padding:14px"><div style="font-size:10px;color:#6040a0;letter-spacing:3px;margin-bottom:8px">開運アクション</div><div style="font-size:13px;color:#c0a0ff;white-space:pre-line">${ai.action||''}</div></div>
+      <div style="background:rgba(200,150,40,.08);border:1px solid rgba(200,150,40,.2);border-radius:12px;padding:14px"><div style="font-size:10px;color:#806020;letter-spacing:3px;margin-bottom:8px">処方・マントラ</div><div style="font-size:12px;color:#d0a840">${ai.remedy||''}</div></div>
+    </div></div>
+    <button class="bm" data-action="menu">← メニューに戻る</button>`;
+  }else{
+    body=`${[{icon:"✨",t:"ダルマ（魂の使命）",sub:"なぜ今あなたはここにいるのか",k:"dharma"},{icon:"🌀",t:"カルマと今世の課題",sub:"繰り返しているパターンを直視",k:"karma"},{icon:"⚡",t:"現在の状況と今の課題",sub:"耳が痛い現実も含めて",k:"present"},{icon:"🌟",t:"未来への展望",sub:"短期・中期・長期の3ステージ",k:"future"},{icon:"🕉️",t:"魂の実践（サーダナ）",sub:"今日・今週・今月・継続の4段階",k:"sadhana"}].map(s=>`<div class="pcard"><div style="display:flex;align-items:center;gap:12px;margin-bottom:14px"><div style="width:38px;height:38px;border-radius:50%;background:rgba(220,160,50,.12);border:1px solid rgba(220,160,50,.3);display:flex;align-items:center;justify-content:center;font-size:18px">${s.icon}</div><div><div class="gld" style="font-size:14px;font-weight:bold;letter-spacing:2px">${s.t}</div><div style="font-size:10px;color:#604020;margin-top:2px">${s.sub}</div></div></div><div class="pblock">${(ai[s.k]||'').replace(/\n/g,'<br>')}</div></div>`).join('')}
+    <div class="pcard pcard-glow"><div style="text-align:center;margin-bottom:16px"><div style="font-size:28px">💌</div><div class="gld" style="font-size:15px;font-weight:bold;letter-spacing:3px;margin-top:8px">ジョーティシュ師からの特別メッセージ</div></div>
+    <div style="background:rgba(220,160,50,.07);border:1px solid rgba(220,160,50,.25);border-radius:14px;padding:22px;white-space:pre-line;font-size:15px;line-height:2.4;color:#f0d890;font-style:italic">${(ai.message||'').replace(/\n/g,'<br>')}</div></div>
+    <button class="pbm" data-action="menu">← メニューに戻る</button>`;}
+  return`<div class="${isPrem?'pcard pcard-glow':'card card-glow'}" style="text-align:center">
+    <div style="font-size:10px;letter-spacing:5px;color:${isPrem?'#604020':'#4a3070'};margin-bottom:8px">${isPrem?'👑 プレミアム特別鑑定':'🔮 ジョーティシュ精密鑑定'} · 鑑定結果</div>
+    <div style="background:${isPrem?'rgba(220,160,50,.15)':'rgba(139,100,220,.15)'};border:1px solid ${isPrem?'rgba(220,160,50,.4)':'rgba(139,100,220,.4)'};border-radius:999px;padding:3px 14px;font-size:13px;font-weight:900;color:${isPrem?'#f0c060':'#c0a0ff'};display:inline-block;margin-bottom:10px">${isPrem?'¥3,000':'¥2,000'}</div>
+    ${r.form.name?`<div style="font-size:14px;color:${isPrem?'#a07030':'#8060c0'};margin-bottom:4px">${r.form.name}さんの鑑定</div>`:''}
+    <div style="font-size:11px;color:${isPrem?'#604020':'#3a2060'};margin-bottom:20px">${r.date}</div>
+    <div class="fortune-ring" style="background:radial-gradient(circle,rgba(${isPrem?'220,160,50':'139,100,220'},.1),transparent);border:2px solid ${fs.c};box-shadow:0 0 30px ${fs.g}">
+      <div style="font-size:20px;font-weight:900;color:${fs.c};letter-spacing:3px">${flv}</div></div>
+    <div style="font-size:16px;color:${isPrem?'#e0b060':'#c0a0ff'};letter-spacing:2px;margin:18px 0 12px;font-style:italic">「${ai.key_message||''}」</div>
+    <div style="font-size:11px;color:${isPrem?'#806030':'#6040a0'}">${r.astro.moonNak.nak.name} · ${r.astro.curDasha.lord}期</div>
+  </div>${body}`;}
+function bindEvents(){
+  document.querySelectorAll('[data-action]').forEach(el=>{el.onclick=()=>{const a=el.dataset.action,sv=el.dataset.svc;
+    if(a==='start'){STATE.screen='session';STATE.svc=sv;STATE.step='input';STATE.err='';render();}
+    if(a==='menu'){STATE.screen='menu';STATE.result=null;STATE.err='';render();}
+    if(a==='submit')doSubmit();};});}
+async function doSubmit(){
+  const bd=document.getElementById('bd')?.value||'';
+  const bt=document.getElementById('bt')?.value||'12:00';
+  const nm=document.getElementById('nm')?.value||'';
+  const gd=document.getElementById('gd')?.value||'';
+  const bp=document.getElementById('bp')?.value||'';
+  const th=document.getElementById('th')?.value||'総合運';
+  const q=document.getElementById('q')?.value||'';
+  if(!bd||!q.trim()){set({err:'生年月日と相談内容を入力してください。'});return;}
+  const form={name:nm,gender:gd,bd,bt,bp,theme:th,question:q};
+  const astro=calcAstro(bd,bt,bp);
+  const svc=STATE.svc,isPrem=svc==='premium';
+  const prompt='【依頼者】'+(nm||'匿名')+'（'+gd+'）\n生年月日:'+bd+' '+bt+' 出生地:'+(bp||'未入力')+' テーマ:'+th+'\nラグナ:'+(astro.lagnaR?.name||'')+' 月:'+(astro.moonR?.name||'')+'\n月ナクシャトラ:'+astro.moonNak.nak.name+' 第'+astro.moonNak.pada+'パダ（守護星:'+astro.moonNak.nak.ruler+'）\nダシャー:'+astro.curDasha.lord+'期（'+astro.curDasha.start+'〜'+astro.curDasha.end+'年）\n相談:'+q+'\n鑑定をお願いします。';
+  const maxTok=isPrem?2000:1500;
+  const loads=isPrem?['カルマを解析中…','ダルマを読み解き中…','深層鑑定書を作成中…']:['ホロスコープを計算中…','惑星配置を分析中…','AI鑑定師が統合分析中…'];
+  let li=0;set({step:'loading',err:'',loadMsg:loads[0]});
+  const ti=setInterval(()=>{li=(li+1)%loads.length;STATE.loadMsg=loads[li];const el=document.querySelector('[style*="animation:pu"]');if(el)el.textContent=loads[li];},1400);
+  let ai;
+  try{const res=await fetch('https://api.anthropic.com/v1/messages',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:maxTok,system:isPrem?SYS_PRM:SYS_STD,messages:[{role:'user',content:prompt}]})});
+  if(res.ok){const data=await res.json();const raw=(data.content||[]).map(b=>b.text||'').join('');try{ai=JSON.parse(raw.replace(/^```json|^```|```$/gm,'').trim());}catch{ai=fallback(svc,form,astro);}}else{ai=fallback(svc,form,astro);}}catch{ai=fallback(svc,form,astro);}
+  clearInterval(ti);
+  set({step:'result',result:{id:Date.now(),date:new Date().toLocaleString('ja-JP'),svc,form,astro,ai}});}
+render();
+</script>
+</body>
+</html>
