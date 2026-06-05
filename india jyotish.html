@@ -1,1 +1,215 @@
+<!DOCTYPE html>
 
+<html lang="ja">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>インド占星術ホロスコープAI</title>
+
+<style>
+
+*{box-sizing:border-box}
+
+body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Hiragino Sans","Yu Gothic",sans-serif;background:radial-gradient(circle at top,#34245f 0%,#120d24 45%,#05040b 100%);color:#fff;min-height:100vh;padding:18px}
+
+.app{max-width:760px;margin:auto;background:rgba(255,255,255,.08);border:1px solid rgba(255,215,0,.35);border-radius:28px;padding:22px}
+
+h1{text-align:center;color:#ffe082;font-size:26px}
+
+.sub{text-align:center;color:#ddd;line-height:1.7}
+
+.chart{width:240px;height:240px;margin:18px auto;border:5px solid #e4c42a;border-radius:50%;position:relative;background:radial-gradient(circle,#ffe066 0%,#372b68 18%,#162238 65%,#111 100%)}
+
+.sign{position:absolute;width:40px;height:40px;border-radius:14px;display:flex;align-items:center;justify-content:center;background:linear-gradient(145deg,#d45cff,#6b1ccf);font-size:24px}
+
+.s1{left:95px;top:-8px}.s2{left:160px;top:12px}.s3{right:5px;top:62px}.s4{right:-8px;top:130px}
+
+.s5{right:35px;bottom:25px}.s6{left:95px;bottom:-8px}.s7{left:35px;bottom:25px}.s8{left:-8px;top:130px}
+
+.s9{left:5px;top:62px}.s10{left:45px;top:12px}.s11{left:95px;top:42px}.s12{left:95px;bottom:42px}
+
+label{display:block;margin:14px 0 7px;color:#fff0b8;font-weight:bold}
+
+input,select,textarea{width:100%;border:2px solid rgba(255,255,255,.22);background:rgba(255,255,255,.12);color:#fff;padding:15px;border-radius:18px;font-size:18px}
+
+select option{color:#111}
+
+textarea{min-height:110px;line-height:1.6}
+
+.row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+
+button{width:100%;border:0;border-radius:999px;padding:18px;margin-top:18px;font-size:20px;font-weight:800;color:white;background:linear-gradient(90deg,#ec2f7b,#ff7a1a,#f5d34b)}
+
+.reset{background:rgba(255,255,255,.16);color:#eee}
+
+.result{display:none;margin-top:24px;padding:18px;border-radius:24px;background:rgba(0,0,0,.35)}
+
+.result.show{display:block}
+
+.card{background:rgba(255,255,255,.1);border-left:5px solid #ffd95b;padding:15px;border-radius:18px;margin:12px 0;line-height:1.8}
+
+.card h3{margin:0 0 8px;color:#ffe082}
+
+.small{font-size:13px;color:#ccc;line-height:1.6}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="app">
+
+<h1>✨ インド占星術ホロスコープAI ✨</h1>
+
+<div class="sub">生年月日・出生時間・相談内容から、星座・ナクシャトラ・守護星をイメージした鑑定を表示します。外部APIなしで動く完成版です。</div>
+
+<div class="chart">
+
+<div class="sign s1">♈</div><div class="sign s2">♉</div><div class="sign s3">♊</div><div class="sign s4">♋</div>
+
+<div class="sign s5">♌</div><div class="sign s6">♍</div><div class="sign s7">♎</div><div class="sign s8">♏</div>
+
+<div class="sign s9">♐</div><div class="sign s10">♑</div><div class="sign s11">♒</div><div class="sign s12">♓</div>
+
+</div>
+
+<div class="row">
+
+<div><label>生年月日</label><input id="birth" type="date" value="1956-03-19"></div>
+
+<div><label>出生時間</label><input id="time" type="time" value="01:01"></div>
+
+</div>
+
+<label>相談テーマ</label>
+
+<select id="theme">
+
+<option>仕事・才能</option>
+
+<option>金運・商売</option>
+
+<option>恋愛・人間関係</option>
+
+<option>健康・癒し</option>
+
+<option>人生の使命</option>
+
+</select>
+
+<label>今の悩み・知りたいこと</label>
+
+<textarea id="question">今後の仕事訪問鍼灸利用者増やせるか？遠隔施術で利用者にすごいパワーで治せる様になりますか？</textarea>
+
+<button id="startBtn" type="button">🔮 ホロスコープ鑑定を開始する</button>
+
+<button id="resetBtn" type="button" class="reset">入力を初期に戻す</button>
+
+<div id="result" class="result">
+
+<h2>🌟 鑑定結果</h2>
+
+<div id="resultBody"></div>
+
+<div class="small">※この鑑定はエンタメ・自己理解・前向きな行動整理を目的とした表示です。医療・法律・投資などの最終判断は専門家へご相談ください。</div>
+
+</div>
+
+</div>
+
+<script>
+
+(function(){
+
+const signs=["牡羊座","牡牛座","双子座","蟹座","獅子座","乙女座","天秤座","蠍座","射手座","山羊座","水瓶座","魚座"];
+
+const nak=["アシュヴィニー","バラニー","クリッティカー","ローヒニー","ムリガシラー","アールドラー","プナルヴァス","プシュヤ","アーシュレーシャ","マガー","プールヴァ・パールグニー","ウッタラ・パールグニー","ハスタ","チトラー","スヴァーティ","ヴィシャーカー","アヌラーダ","ジェーシュター","ムーラ","プールヴァ・アシャーダ","ウッタラ・アシャーダ","シュラヴァナ","ダニシュター","シャタビシャー","プールヴァ・バードラパダー","ウッタラ・バードラパダー","レーヴァティ"];
+
+const planets=["太陽","月","火星","水星","木星","金星","土星","ラーフ","ケートゥ"];
+
+function num(t){let n=0;for(let i=0;i<t.length;i++){n+=t.charCodeAt(i)*(i+1)}return n}
+
+function pick(a,n){return a[Math.abs(n)%a.length]}
+
+function safe(t){return String(t).replace(/</g,"&lt;").replace(/>/g,"&gt;")}
+
+function make(){
+
+const birth=document.getElementById("birth").value||"1956-03-19";
+
+const time=document.getElementById("time").value||"01:01";
+
+const theme=document.getElementById("theme").value;
+
+const q=document.getElementById("question").value||"今後について";
+
+const seed=num(birth+time+theme+q);
+
+const sign=pick(signs,seed), naks=pick(nak,seed+7), planet=pick(planets,seed+13);
+
+const lucky=pick(["東","西","南","北","朝の時間","夕方","玄関を整えること","白い紙に願いを書くこと"],seed+21);
+
+const color=pick(["金色","白","青","緑","紫","オレンジ","水色","深い紺色"],seed+31);
+
+return `
+
+<div class="card"><h3>🪐 星の基本メッセージ</h3>あなたの今日の流れは、<b>${sign}</b> の行動力と、ナクシャトラ <b>${naks}</b> の集中力が強く出ています。守護の星は <b>${planet}</b>。今は「焦って広げる」より、「信頼される形を整える」ことで運が伸びます。</div>
+
+<div class="card"><h3>💼 仕事運</h3>仕事運は上昇傾向です。特に「訪問鍼灸」「丁寧な説明」「安心感のある案内」を強めると、紹介や再利用につながりやすい流れです。1人1人の満足を積み重ねることが大切です。</div>
+
+<div class="card"><h3>💰 金運</h3>金運は、料金メニューをわかりやすく見せることで安定します。無料相談・通常施術・特別ケアなど、段階を分けると申し込みやすくなります。</div>
+
+<div class="card"><h3>❤️ 恋愛・人間関係運</h3>人間関係では、あなたの熱意が強く伝わる日です。短くやさしく伝えることで、相手に安心感が生まれます。</div>
+
+<div class="card"><h3>🌿 健康・癒し運</h3>遠隔施術や癒しの力は、見せ方が大切です。「必ず治す」と言い切るより、「心身を整えるサポート」「リラックスを促すケア」と表現すると信頼されやすくなります。</div>
+
+<div class="card"><h3>✨ 開運アドバイス</h3>今日の開運行動は <b>${lucky}</b>。開運カラーは <b>${color}</b>。ホームページに「初めての方へ」「料金」「流れ」「安心の説明」を入れると、利用者が増える土台になります。</div>
+
+<div class="card"><h3>🔮 最終メッセージ</h3>今のテーマ「${safe(q)}」に対して、星は「信頼を形にすれば広がる」と示しています。強い言葉より、安心できる説明と実績の積み重ねが一番の開運です。</div>`;
+
+}
+
+function show(){
+
+document.getElementById("resultBody").innerHTML=make();
+
+document.getElementById("result").classList.add("show");
+
+document.getElementById("result").scrollIntoView({behavior:"smooth"});
+
+}
+
+function reset(){
+
+document.getElementById("birth").value="1956-03-19";
+
+document.getElementById("time").value="01:01";
+
+document.getElementById("theme").value="仕事・才能";
+
+document.getElementById("question").value="今後の仕事訪問鍼灸利用者増やせるか？遠隔施術で利用者にすごいパワーで治せる様になりますか？";
+
+document.getElementById("result").classList.remove("show");
+
+}
+
+document.addEventListener("DOMContentLoaded",function(){
+
+document.getElementById("startBtn").addEventListener("click",show);
+
+document.getElementById("resetBtn").addEventListener("click",reset);
+
+});
+
+})();
+
+</script>
+
+</body>
+
+</html>
